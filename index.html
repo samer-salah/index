@@ -57,10 +57,11 @@
         <div class="bg-primary/90 py-2">
             <div class="max-w-7xl mx-auto px-4 flex justify-between items-center text-sm">
                 <div class="flex items-center gap-4">
-                    <span class="flex items-center gap-2">
-                        <i class="ri-phone-line"></i>
-                        0 10 69446443
-                    </span>
+                   <a href="tel:+20106944643" class="flex items-center gap-2 text-white/80 hover:underline">
+    <i class="ri-phone-line"></i>
+    0 10 69446443
+</a>
+
                     <span class="flex items-center gap-2">
                         <i class="ri-mail-line"></i>
                         info@drmohamedesmat.com
@@ -604,9 +605,12 @@
                             <span class="text-white/80">كفر الأطرش، شربين، الدقهلية</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i class="ri-phone-line text-yellow-400"></i>
-                            <span class="text-white/80">⁦+20 10 69446443⁩</span>
-                        </div>
+  <i class="ri-phone-line text-yellow-400"></i>
+  <a href="tel:+201069446443" class="text-white/80 hover:underline">
+    +20 10 69446443
+  </a>
+</div>
+
                         <div class="flex items-center gap-3">
                             <i class="ri-mail-line text-yellow-400"></i>
                             <span class="text-white/80">info@dr.mohamedesmat.com</span>
@@ -729,20 +733,39 @@
         },
         rageclick: false,
     
+<!-- رابط أيقونة Remix Icon -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    <a href="https://wa.me/201069446443" target="_blank"
-   class="fixed bottom-6 left-6 z-[9999] flex items-center justify-center w-16 h-16 bg-[#25D366] rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 group">
+<!-- الزر العائم -->
+<!-- رابط أيقونة Remix Icon -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+<a href="https://wa.me/201069446443" target="_blank"
+   class="fixed bottom-6 left-6 z-[9999] w-16 h-16 flex items-center justify-center bg-[#25D366] rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 group">
+   
    <i class="ri-whatsapp-line text-white text-4xl"></i>
-    <span class="absolute right-20 bg-white text-gray-800 px-4 py-2 rounded-lg text-sm font-bold shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+   
+   <span class="absolute right-20 bg-white text-gray-800 px-4 py-2 rounded-lg text-sm font-bold shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
         اطلب دواءك الآن
-    </span>
+   </span>
 </a>
 
+
+<!-- JS لضمان ظهور الزر دائمًا -->
+<script>
+  const waBtn = document.querySelector('a[href^="https://wa.me"]');
+  if (waBtn) {
+    waBtn.style.display = 'flex';
+    waBtn.style.position = 'fixed';
+    waBtn.style.zIndex = '9999';
+  }
+</script>
 
 
 
 
 </body></html>
+
 
 
 
