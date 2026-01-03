@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Panadol Advance",
+    "price": "30.00",
+    "status": "available",
+    "image": "https://example.com/panadol.jpg"
+  },
+  {
+    "name": "Congestal",
+    "price": "31.00",
+    "status": "available",
+    "image": "https://example.com/congestal.jpg"
+  }
+]
