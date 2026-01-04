@@ -683,124 +683,84 @@
     </script>
 
     <script id="mobile-menu">
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.createElement('button');
-            mobileMenuButton.innerHTML = '<i class="ri-menu-line text-2xl"></i>';
-            mobileMenuButton.className = 'md:hidden p-2 hover:bg-white/20 rounded-full transition-colors';
-            
-            const nav = document.querySelector('nav');
-            const header = document.querySelector('header .max-w-7xl');
-            
-            if (nav && header) {
-                header.querySelector('.flex.items-center.gap-4').appendChild(mobileMenuButton);
-                
-                mobileMenuButton.addEventListener('click', function() {
-                    nav.classList.toggle('hidden');
-                    nav.classList.toggle('flex');
-                    nav.classList.toggle('flex-col');
-                    nav.classList.toggle('absolute');
-                    nav.classList.toggle('top-full');
-                    nav.classList.toggle('left-0');
-                    nav.classList.toggle('right-0');
-                    nav.classList.toggle('bg-primary');
-                    nav.classList.toggle('p-4');
-                    nav.classList.toggle('shadow-lg');
-                });
-            }
+       
+document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('nav');
+    const header = document.querySelector('header');
+    const mobileMenuButton = document.getElementById('mobileMenuBtn');
+
+    if (nav && header && mobileMenuButton) {
+        header.querySelector('.flex.items-center.gap-4')
+              .appendChild(mobileMenuButton);
+
+        mobileMenuButton.addEventListener('click', () => {
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
+            nav.classList.toggle('flex-col');
+            nav.classList.toggle('absolute');
+            nav.classList.toggle('top-full');
+            nav.classList.toggle('left-0');
+            nav.classList.toggle('right-0');
+            nav.classList.toggle('bg-primary');
+            nav.classList.toggle('p-4');
+            nav.classList.toggle('shadow-lg');
         });
-    </script>
+    }
+});
+</script>
+
 
 <script>
-  <style>
-/* تنسيقات بسيطة للنتائج مع الصور */
-.search-results {
-    margin-top: 8px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    max-width: 400px;
-    background: #f9f9f9;
-    font-family: Arial, sans-serif;
-}
+function startSearch() {
+    const word = document.getElementById('searchInput').value.toLowerCase();
+    const resultsBox = document.getElementById('resultsBox');
 
-.search-results .medicine {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    padding: 4px;
-    border-bottom: 1px solid #ddd;
-}
-
-.search-results .medicine:last-child {
-    border-bottom: none;
-}
-
-.search-results .medicine img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    margin-right: 10px;
-}
-
-.search-results .not-found {
-    color: red;
-    font-weight: bold;
-}
-</style>
-
-<input type="text" placeholder="ابحث عن دواء">
-<div class="search-results"></div>
-
-<script>
-document.addEventListener('DOMContentLoaded', async function () {
-
-    let medicines = [];
-
-    try {
-        const response = await fetch('./medicines.json');
-        medicines = await response.json();
-    } catch (error) {
-        alert('⚠️ خطأ في تحميل ملف الأدوية');
-        console.error(error);
+    if (word.length < 2) {
+        resultsBox.style.display = 'none';
         return;
     }
 
-    const searchInput = document.querySelector('input[placeholder*="ابحث"]');
-    const resultsContainer = document.querySelector('.search-results');
+    fetch('medicines.json')
+        .then(res => res.json())
+        .then(data => {
+            const filtered = data.filter(drug =>
+                drug.name.toLowerCase().includes(word)
+            );
 
-    searchInput.addEventListener('keyup', function () {
-        const searchTerm = this.value.trim().toLowerCase();
-
-        // تنظيف النتائج السابقة
-        resultsContainer.innerHTML = '';
-
-        if (!searchTerm) return;
-
-        const results = medicines.filter(med =>
-            med.name.toLowerCase().includes(searchTerm)
-        );
-
-        if (results.length > 0) {
-            results.forEach(med => {
-                const medDiv = document.createElement('div');
-                medDiv.classList.add('medicine');
-                medDiv.innerHTML = `
-                    <img src="${med.image}" alt="${med.name}">
-                    <div>
-                        <strong>${med.name}</strong><br>
-                        السعر: ${med.price} ج.م
+            resultsBox.style.display = 'block';
+            resultsBox.innerHTML = filtered.length
+                ? filtered.map(drug => `
+                    <div class="flex items-center p-3 border-b hover:bg-gray-50 cursor-pointer">
+                        <img src="${drug.image}" class="w-10 h-10 object-contain ml-3">
+                        <div class="flex-grow text-right">
+                            <b class="text-primary block text-sm">${drug.name}</b>
+                            <small class="text-gray-500">${drug.category || ''}</small>
+                        </div>
+                        <div class="font-bold text-secondary text-sm">${drug.price} ج.م</div>
                     </div>
-                `;
-                resultsContainer.appendChild(medDiv);
-            });
-        } else {
-            const notFound = document.createElement('div');
-            notFound.classList.add('not-found');
-            notFound.textContent = '❌ الدواء غير موجود';
-            resultsContainer.appendChild(notFound);
-        }
-    });
-});
+                `).join('')
+                : '<div class="p-4 text-center text-gray-400">غير موجود</div>';
+        })
+        .catch(() => console.error("medicines.json"));
+}
+</script>
+
+        <script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){
+function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),
+t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}
+(p=t.createElement("script")).type="text/javascript",
+p.crossOrigin="anonymous",p.async=!0,
+p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",
+(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);
+var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",
+u.people=u.people||[],u.toString=function(t){
+var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},
+u.people.toString=function(){return u.toString(1)+".people (stub)"},
+o="init capture identify reset".split(" "),n=0;n<o.length;n++)g(u,o[n]);
+e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+posthog.init('PH_KEY', { api_host: 'https://us.i.posthog.com' });
 </script>
 
 
@@ -809,7 +769,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
+
+
 </body></html>
+
 
 
 
