@@ -711,7 +711,7 @@
     </script>
 
 <script>
-    <script id="search-functionality">
+   <script id="search-functionality">
 document.addEventListener('DOMContentLoaded', async function () {
 
     let medicines = [];
@@ -734,15 +734,18 @@ document.addEventListener('DOMContentLoaded', async function () {
                 if (e.key === 'Enter') {
 
                     const searchTerm = this.value.trim();
-
                     if (!searchTerm) return;
 
                     const result = medicines.find(med =>
-                        med.toLowerCase().includes(searchTerm.toLowerCase())
+                        med.name.toLowerCase().includes(searchTerm.toLowerCase())
                     );
 
                     if (result) {
-                        alert('✅ الدواء موجود: ' + result);
+                        alert(
+                            `✅ الدواء موجود\n` +
+                            `الاسم: ${result.name}\n` +
+                            `السعر: ${result.price} ج.م`
+                        );
                     } else {
                         alert('❌ الدواء غير موجود');
                     }
@@ -757,7 +760,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
+
 </body></html>
+
 
 
 
