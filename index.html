@@ -711,7 +711,47 @@
     </script>
 
 <script>
-   <script id="search-functionality">
+  <style>
+/* تنسيقات بسيطة للنتائج مع الصور */
+.search-results {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    max-width: 400px;
+    background: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+.search-results .medicine {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 4px;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-results .medicine:last-child {
+    border-bottom: none;
+}
+
+.search-results .medicine img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+.search-results .not-found {
+    color: red;
+    font-weight: bold;
+}
+</style>
+
+<input type="text" placeholder="ابحث عن دواء">
+<div class="search-results"></div>
+
+<script>
 document.addEventListener('DOMContentLoaded', async function () {
 
     let medicines = [];
@@ -725,32 +765,39 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
     }
 
-    const searchInputs = document.querySelectorAll('input[type="text"]');
+    const searchInput = document.querySelector('input[placeholder*="ابحث"]');
+    const resultsContainer = document.querySelector('.search-results');
 
-    searchInputs.forEach(input => {
-        if (input.placeholder.includes('ابحث')) {
+    searchInput.addEventListener('keyup', function () {
+        const searchTerm = this.value.trim().toLowerCase();
 
-            input.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') {
+        // تنظيف النتائج السابقة
+        resultsContainer.innerHTML = '';
 
-                    const searchTerm = this.value.trim();
-                    if (!searchTerm) return;
+        if (!searchTerm) return;
 
-                    const result = medicines.find(med =>
-                        med.name.toLowerCase().includes(searchTerm.toLowerCase())
-                    );
+        const results = medicines.filter(med =>
+            med.name.toLowerCase().includes(searchTerm)
+        );
 
-                    if (result) {
-                        alert(
-                            `✅ الدواء موجود\n` +
-                            `الاسم: ${result.name}\n` +
-                            `السعر: ${result.price} ج.م`
-                        );
-                    } else {
-                        alert('❌ الدواء غير موجود');
-                    }
-                }
+        if (results.length > 0) {
+            results.forEach(med => {
+                const medDiv = document.createElement('div');
+                medDiv.classList.add('medicine');
+                medDiv.innerHTML = `
+                    <img src="${med.image}" alt="${med.name}">
+                    <div>
+                        <strong>${med.name}</strong><br>
+                        السعر: ${med.price} ج.م
+                    </div>
+                `;
+                resultsContainer.appendChild(medDiv);
             });
+        } else {
+            const notFound = document.createElement('div');
+            notFound.classList.add('not-found');
+            notFound.textContent = '❌ الدواء غير موجود';
+            resultsContainer.appendChild(notFound);
         }
     });
 });
@@ -761,7 +808,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
+
 </body></html>
+
 
 
 
