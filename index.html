@@ -36,6 +36,35 @@
                 }
             }
         } 
+        /* تنسيق الحاوية الكبرى */
+.slider-container {
+    width: 100%;
+    margin: 0 auto; /* لإلغاء أي هوامش جانبية */
+    padding: 20px 0; /* مسافة بسيطة من الأعلى والأسفل */
+}
+
+.swiper {
+    width: 100%;
+    height: auto;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f9f9f9; /* لون خلفية خفيف */
+}
+
+.swiper-slide img {
+    width: 100%; /* تجعل الصورة تمتد بعرض الشاشة */
+    max-height: 450px; /* يمكنك زيادة أو تقليل الارتفاع حسب ذوقك */
+    object-fit: cover; /* لضمان عدم انضغاط الصورة وتشوهها */
+}
+
+/* تعديل مكان أزرار التنقل */
+.swiper-button-next, .swiper-button-prev {
+    color: #000; /* تغيير لون السهم للأسود ليظهر فوق الصور الفاتحة */
+}
     </script>
        
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/822/822143.png">
@@ -817,30 +846,30 @@ function startSearch() {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            loop: true, // تكرار لا نهائي
-            centeredSlides: true,
-            autoplay: {
-                delay: 3500, // سرعة التبديل (3.5 ثانية)
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-        });
-    </script>
+   var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1, // عرض صورة واحدة فقط
+    spaceBetween: 0,  // إلغاء الفراغات بين الصور
+    loop: true,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+});
 
 
 
 
 
 </body></html>
+
 
 
 
