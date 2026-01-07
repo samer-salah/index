@@ -13,44 +13,33 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>
-/* الحاوية الخارجية */
+/* 1. الحاوية الرئيسية: تأكد أنها تأخذ العرض الكامل */
 .slider-container {
     width: 100%;
-    padding: 20px 0;
-    background-color: #fff; /* لون خلفية اختياري */
+    overflow: hidden;
+    background-color: #fff;
 }
 
-/* ضبط حجم السلايدر */
-.mySwiper {
+/* 2. ضبط السلايدر نفسه */
+.swiper.mySwiper {
     width: 100%;
-    max-width: 1200px; /* أقصى عرض للسلايدر ليظهر بشكل متناسق */
-    height: auto;
-    margin: 0 auto;
+    height: auto; /* يجعل الارتفاع يتحدد بناءً على الصورة */
 }
 
-/* تنسيق الصور (الحل الأهم) */
+/* 3. ضبط الصور لتملأ العرض المخصص لها */
+.swiper-slide img {
+    width: 100%;       /* تجعل الصورة تأخذ عرض السلايدر بالكامل */
+    height: auto;      /* الحفاظ على تناسق الأبعاد */
+    max-height: 500px; /* يمكنك زيادة هذا الرقم إذا أردت الصورة أكبر */
+    object-fit: cover; /* تجعل الصورة تملأ المساحة بشكل احترافي */
+    display: block;
+}
+
+/* 4. إلغاء أي هوامش قديمة قد تسبب صغر الحجم */
 .swiper-slide {
+    padding: 0 !important;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-
-.swiper-slide img {
-    width: 100%;
-    height: auto;
-    max-height: 300px; /* يمكنك التحكم في طول السلايدر من هنا */
-    object-fit: contain; /* يضمن ظهور الصورة كاملة دون قص */
-    border-radius: 8px;  /* زوايا منحنية اختيارية */
-}
-
-/* تخصيص ألوان أزرار التنقل (اختياري) */
-.swiper-button-next, .swiper-button-prev {
-    color: #007aff; /* غير اللون حسب هوية موقعك */
-    transform: scale(0.8); /* لتصغير حجم الأسهم قليلاً */
-}
-
-.swiper-pagination-bullet-active {
-    background: #007aff;
 }
     </style>
     <script>
@@ -880,6 +869,7 @@ function startSearch() {
 
 
 </body></html>
+
 
 
 
