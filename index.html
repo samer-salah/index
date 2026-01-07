@@ -11,7 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <style>
 /* 1. الحاوية الرئيسية: تأكد أنها تأخذ العرض الكامل */
 .slider-container {
@@ -68,6 +68,11 @@ a {
     border-style: solid;
     border-color: #e5e7eb;
 }
+
+    @keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
     </style>
     <script>
         tailwind.config = {
@@ -105,10 +110,12 @@ a {
     <div class="bg-primary/90 py-2">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center text-sm">
             <div class="flex items-center gap-4">
-                <a href="tel:+20106944643" class="flex items-center gap-2 text-white/80 hover:underline">
-                    <i class="ri-phone-line"></i>
-                    0 10 69446443
-                </a>
+                <a href="https://wa.me/201003714443" class="floating-whatsapp" target="_blank">
+                <div class="whatsapp-icon">
+                <i class="ri-whatsapp-fill ri-xl"></i>
+                </div>
+            </a>
+
 
                 <span class="flex items-center gap-2">
                     <i class="ri-mail-line"></i>
@@ -898,6 +905,7 @@ function startSearch() {
 
 
 </body></html>
+
 
 
 
