@@ -13,22 +13,44 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>
-     /* إجبار السلايدر على أخذ عرض الشاشة بالكامل */
+/* الحاوية الخارجية */
 .slider-container {
-    width: 100vw !important;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw !important;
-    margin-right: -50vw !important;
-    overflow: hidden;
+    width: 100%;
+    padding: 20px 0;
+    background-color: #fff; /* لون خلفية اختياري */
 }
 
-.mySwiper .swiper-slide img {
-    width: 100% !important;
-    height: 300px !important; /* ارتفاع مناسب مثل موقع النهدي */
-    object-fit: cover !important;
-    display: block;
+/* ضبط حجم السلايدر */
+.mySwiper {
+    width: 100%;
+    max-width: 1200px; /* أقصى عرض للسلايدر ليظهر بشكل متناسق */
+    height: auto;
+    margin: 0 auto;
+}
+
+/* تنسيق الصور (الحل الأهم) */
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: auto;
+    max-height: 300px; /* يمكنك التحكم في طول السلايدر من هنا */
+    object-fit: contain; /* يضمن ظهور الصورة كاملة دون قص */
+    border-radius: 8px;  /* زوايا منحنية اختيارية */
+}
+
+/* تخصيص ألوان أزرار التنقل (اختياري) */
+.swiper-button-next, .swiper-button-prev {
+    color: #007aff; /* غير اللون حسب هوية موقعك */
+    transform: scale(0.8); /* لتصغير حجم الأسهم قليلاً */
+}
+
+.swiper-pagination-bullet-active {
+    background: #007aff;
 }
     </style>
     <script>
@@ -132,8 +154,7 @@
                         type="text"
                         placeholder="ابحث عن دواء..."
                         onkeyup="startSearch()"
-                        class="bg-white/20 border border-white/30 rounded-full px-4 py-2 pr-10 text-white placeholder-white/70 focus:outline-none focus:bg-white/30 w-64"
-                    >
+                        class="bg-white/20 border border-white/30 rounded-full px-4 py-2 pr-10 text-white placeholder-white/70 focus:outline-none focus:bg-white/30 w-64">
                     <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
                         <i class="ri-search-line text-white/70"></i>
                     </div>
@@ -211,29 +232,18 @@
     </div>
 </section>
 <div class="slider-container">
-        <div class="swiper mySwiper">
-           <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <img src="new-1.png" alt="خصومات الشتاء">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="new-1.png" alt="خصومات الشتاء"></div>
+            <div class="swiper-slide"><img src="new-2.png" alt="عروض العناية"></div>
+            <div class="swiper-slide"><img src="new-3.png" alt="تخفيضات كبرى"></div>
+            <div class="swiper-slide"><img src="new-4.png" alt="عروض السنة الجديدة"></div>
         </div>
-        <div class="swiper-slide">
-            <img src="new-2.png" alt="عروض العناية">
-        </div>
-        <div class="swiper-slide">
-            <img src="new-3.png" alt="تخفيضات كبرى">
-        </div>
-        <div class="swiper-slide">
-            <img src="new-4.png" alt="عروض السنة الجديدة">
-        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
-    
-    <div class="swiper-pagination"></div>
-    
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
-            
+</div>     
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-pagination"></div>
@@ -818,30 +828,29 @@ function startSearch() {
         return;
     }
 
-    
-    fetch('https://drive.google.com/file/d/105YNks2NBgBArT5a5vdvGQaqTcPItm_J/view?usp=sharing')
-  .then(response => response.json())
-  .then(data => console.log(data));
+    // يجب أن تكون كل العمليات داخل الـ then لضمان وصول البيانات
+    fetch('medicines.json') 
+    .then(response => response.json())
+    .then(data => {
+        const filtered = data.filter(drug =>
+            drug.name.toLowerCase().includes(word)
+        );
 
-               const filtered = data.filter(drug =>
-                drug.name.toLowerCase().includes(word)
-            );
-
-            resultsBox.style.display = 'block';
-            resultsBox.innerHTML = filtered.length
-                ? filtered.map(drug => `
-                    <div class="flex items-center p-3 border-b hover:bg-gray-50 cursor-pointer">
-                        <img src="${drug.image}" class="w-10 h-10 object-contain ml-3">
-                        <div class="flex-grow text-right">
-                            <b class="text-primary block text-sm">${drug.name}</b>
-                            <small class="text-gray-500">${drug.category}</small>
-                        </div>
-                        <div class="font-bold text-secondary text-sm">${drug.price} ج.م</div>
+        resultsBox.style.display = 'block';
+        resultsBox.innerHTML = filtered.length
+            ? filtered.map(drug => `
+                <div class="flex items-center p-3 border-b hover:bg-gray-50 cursor-pointer">
+                    <img src="${drug.image}" class="w-10 h-10 object-contain ml-3">
+                    <div class="flex-grow text-right">
+                        <b class="text-primary block text-sm">${drug.name}</b>
+                        <small class="text-gray-500">${drug.category}</small>
                     </div>
-                `).join('')
-                : '<div class="p-4 text-center text-gray-400">غير موجود</div>';
-        }
-        .catch(() => console.error('medicines.json'));
+                    <div class="font-bold text-secondary text-sm">${drug.price} ج.م</div>
+                </div>
+            `).join('')
+            : '<div class="p-4 text-center text-gray-400">غير موجود</div>';
+    })
+    .catch(err => console.error('Error fetching data:', err));
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -871,6 +880,7 @@ function startSearch() {
 
 
 </body></html>
+
 
 
 
