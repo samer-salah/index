@@ -41,6 +41,33 @@
     display: flex;
     justify-content: center;
 }
+
+    
+.floating-whatsapp {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    animation: bounce 2s infinite;
+}
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+}
     </style>
     <script>
         tailwind.config = {
@@ -593,8 +620,10 @@
             </div>
         </div>
     </section>
-        <a href="https://wa.me/201069446443" class="floating-whatsapp">
-        <i class="ri-whatsapp-line text-white text-3xl"></i>
+        <a href="https://wa.me/201069446443" class="floating-whatsapp cursor-pointer">
+        <div class="w-8 h-8 flex items-center justify-center text-white">
+            <i class="ri-whatsapp-fill ri-xl"></i>
+        </div>
     </a>
 
 
@@ -869,6 +898,7 @@ function startSearch() {
 
 
 </body></html>
+
 
 
 
