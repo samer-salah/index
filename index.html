@@ -33,119 +33,6 @@
         align-items: center;
         justify-content: center;
     }
-.carousel-section {
-        width: 100%;
-        padding: 60px 0;
-        background: #f5f5f5;
-        overflow: hidden;
-    }
-
-    .carousel-container {
-        width: 95%;
-        max-width: 1200px;
-        margin: 0 auto;
-        background: linear-gradient(to bottom, #e8e8e8 0%, #ffffff 50%, #f0f0f0 100%);
-        border-radius: 20px;
-        padding: 80px 20px;
-        position: relative;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .site-name {
-        position: absolute;
-        top: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 4rem;
-        font-weight: 900;
-        color: rgba(150, 160, 180, 0.1);
-        z-index: 1;
-        white-space: nowrap;
-        pointer-events: none;
-    }
-
-    .carousel-wrapper {
-        position: relative;
-        height: 400px;
-        perspective: 1200px;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .carousel-item {
-        position: absolute;
-        width: 260px;
-        height: 360px;
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        border-radius: 15px;
-        overflow: hidden;
-        background: white;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        opacity: 0;
-        transform: scale(0.5) translateZ(-500px);
-        visibility: hidden;
-    }
-
-    .carousel-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    /* توزيع العناصر بالتوالي */
-    .carousel-item.active {
-        opacity: 1;
-        visibility: visible;
-        z-index: 10;
-        transform: translateX(0) scale(1) translateZ(100px);
-    }
-
-    .carousel-item.next-1 {
-        opacity: 0.8;
-        visibility: visible;
-        z-index: 5;
-        transform: translateX(220px) scale(0.8) rotateY(-20deg);
-    }
-
-    .carousel-item.prev-1 {
-        opacity: 0.8;
-        visibility: visible;
-        z-index: 5;
-        transform: translateX(-220px) scale(0.8) rotateY(20deg);
-    }
-
-    .carousel-item.next-2 {
-        opacity: 0.4;
-        visibility: visible;
-        z-index: 2;
-        transform: translateX(380px) scale(0.6) rotateY(-30deg);
-    }
-
-    .carousel-item.prev-2 {
-        opacity: 0.4;
-        visibility: visible;
-        z-index: 2;
-        transform: translateX(-380px) scale(0.6) rotateY(30deg);
-    }
-
-    .carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 100;
-        background: #0d7377;
-        color: white;
-        border: none;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-    .prev-btn { left: 15px; }
-    .next-btn { right: 15px; }
-
     </style>
     <script>
      /* ============================================
@@ -515,77 +402,22 @@ header .w-12.h-12.rounded-full:hover {
     box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
 }
 
-/* ===== تأثير التمرير السلس للقوائم ===== */
-nav a {
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #fbbf24, transparent);
-    transition: all 0.4s ease;
-    transform: translateX(-50%);
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-/* ===== تأثير العداد المتحرك ===== */
-@keyframes counter-up {
-    from {
-        transform: translateY(20px);
-        opacity: 0;
+    /* واتساب والأنيميشن */
+    .floating-whatsapp {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #25D366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        animation: bounce 2s infinite;
     }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.hero-bg .grid > div {
-    animation: counter-up 0.8s ease forwards;
-}
-
-.hero-bg .grid > div:nth-child(1) { animation-delay: 0.1s; }
-.hero-bg .grid > div:nth-child(2) { animation-delay: 0.2s; }
-.hero-bg .grid > div:nth-child(3) { animation-delay: 0.3s; }
-.hero-bg .grid > div:nth-child(4) { animation-delay: 0.4s; }
-
-/* ===== تحسين السلة والأيقونات ===== */
-button:has(.ri-shopping-cart-line),
-button:has(.ri-user-line) {
-    transition: all 0.3s ease;
-}
-
-button:has(.ri-shopping-cart-line):hover,
-button:has(.ri-user-line):hover {
-    transform: translateY(-3px) scale(1.1);
-    background: rgba(251, 191, 36, 0.2);
-}
-
-/* ===== استجابة للشاشات الصغيرة ===== */
-@media (max-width: 768px) {
-    .hero-bg::before,
-    .hero-bg::after {
-        width: 150px;
-        height: 150px;
-    }
-    
-    .card-hover:hover {
-        transform: translateY(-10px);
-    }
-    
-    .service-card:hover {
-        transform: scale(1.02);
-    }
-}
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } } 
     </script>
        
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/822/822143.png">
@@ -786,86 +618,7 @@ button:has(.ri-user-line):hover {
     </div>
 </section>
 
-    <div class="carousel-container">
-        <div class="site-name">فريقنا</div>
-
-        <div class="carousel-wrapper">
-            <div class="carousel-track">
-                <div class="carousel-item active">
-                    <div class="item-card">
-                        <img src="new-13.jpg" alt="عضو الفريق" class="item-image">
-                        <div class="item-info">
-                            <div class="item-name">سارة أحمد</div>
-                            <div class="item-role">مديرة التصميم</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item next-1">
-                    <div class="item-card">
-                        <img src="new-14.jpg" alt="عضو الفريق" class="item-image">
-                        <div class="item-info">
-                            <div class="item-name">محمد علي</div>
-                            <div class="item-role">مطور واجهات</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item prev-1">
-                    <div class="item-card">
-                        <img src="new-15.jpg" alt="عضو الفريق" class="item-image">
-                        <div class="item-info">
-                            <div class="item-name">نور محمود</div>
-                            <div class="item-role">مديرة المشاريع</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item next-2">
-                    <div class="item-card">
-                        <img src="new-16.jpg" alt="عضو الفريق" class="item-image">
-                        <div class="item-info">
-                            <div class="item-name">أحمد خالد</div>
-                            <div class="item-role">مطور خلفي</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item prev-2">
-                    <div class="item-card">
-                        <img src="new-17.jpg" alt="عضو الفريق" class="item-image">
-                        <div class="item-info">
-                            <div class="item-name">ليلى حسن</div>
-                            <div class="item-role">مصممة UX/UI</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item hidden">
-                    <div class="item-card">
-                        <img src="new-18.jpg" alt="عضو الفريق" class="item-image">
-                        <div class="item-info">
-                            <div class="item-name">عمر سعيد</div>
-                            <div class="item-role">مدير التسويق</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item hidden">
-                    <div class="item-card">
-                        <img src="new-19.jpg" alt="عضو الفريق" class="item-image">
-                        <div class="item-info">
-                            <div class="item-name">مريم يوسف</div>
-                            <div class="item-role">مطورة تطبيقات</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="carousel-nav prev-btn" onclick="moveCarousel(-1)"></button>
-            <button class="carousel-nav next-btn" onclick="moveCarousel(1)"></button>
-        </div>
-    </div>
+    
 
     <!-- Featured Products -->
     <section class="py-16 bg-gray-50">
@@ -1461,6 +1214,7 @@ function startSearch() {
 
 
 </body></html>
+
 
 
 
