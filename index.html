@@ -148,75 +148,444 @@
 
     </style>
     <script>
-       // 1. تعريف العناصر الأساسية
-const items = document.querySelectorAll('.carousel-item');
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-const bgName = document.querySelector('.site-name'); // الاسم الكبير الخافت
-const footerName = document.getElementById('footer-name'); // الاسم بالأسفل
-const footerRole = document.getElementById('footer-role'); // الوظيفة بالأسفل
+     /* ============================================
+   ملف التأثيرات الحديثة والحركات ثري دي
+   للصق هذا الكود في ملف CSS منفصل أو في <style>
+============================================ */
 
-let currentIndex = 0; // سيبدأ من الصورة الأولى (رقم 13)
-
-function updateCarousel() {
-    const n = items.length;
-
-    // 2. مسح كافة الكلاسات القديمة من جميع العناصر
-    items.forEach((item) => {
-        item.classList.remove('active', 'next-1', 'next-2', 'prev-1', 'prev-2', 'hidden');
-        item.style.pointerEvents = "none"; // تعطيل الضغط على الصور غير النشطة
-    });
-
-    // 3. حساب المؤشرات (Indices) للصور الخمس الظاهرة
-    let next1 = (currentIndex + 1) % n;
-    let next2 = (currentIndex + 2) % n;
-    let prev1 = (currentIndex - 1 + n) % n;
-    let prev2 = (currentIndex - 2 + n) % n;
-
-    // 4. إضافة الكلاسات الجديدة لتفعيل توزيع الـ CSS الخاص بك
-    items[currentIndex].classList.add('active');
-    items[next1].classList.add('next-1');
-    items[next2].classList.add('next-2');
-    items[prev1].classList.add('prev-1');
-    items[prev2].classList.add('prev-2');
-
-    // 5. إخفاء باقي الصور (السادسة والسابعة) لمنع التراكم في الخلفية
-    items.forEach((item, index) => {
-        if (![currentIndex, next1, next2, prev1, prev2].includes(index)) {
-            item.classList.add('hidden');
-        }
-    });
-
-    // 6. تحديث النصوص بناءً على الـ data attributes للبطاقة النشطة
-    const activeItem = items[currentIndex];
-    const name = activeItem.getAttribute('data-name');
-    const role = activeItem.getAttribute('data-role');
-
-    if (name) {
-        if (bgName) bgName.innerText = name;
-        if (footerName) footerName.innerText = name;
-    }
-    if (role && footerRole) {
-        footerRole.innerText = role;
-    }
-
-    // تفعيل الضغط على الصورة الوسطى فقط
-    items[currentIndex].style.pointerEvents = "auto";
+/* ===== تصميم اسم "دكتور محمد عصمت" الكبير ===== */
+.hero-bg h1 {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(251, 191, 36, 0.3);
+    animation: heroGradient 4s ease infinite, float 6s ease-in-out infinite;
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    letter-spacing: 2px;
+    position: relative;
 }
 
-// 7. إعداد مستمعي الأحداث للأزرار (Events)
-nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % items.length;
-    updateCarousel();
-});
+@keyframes heroGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
 
-prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + items.length) % items.length;
-    updateCarousel();
-});
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
 
-// 8. تشغيل الكاروسيل لأول مرة عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', updateCarousel);
+/* تأثير وهج خلف النص */
+.hero-bg h1::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(245, 158, 11, 0.3));
+    filter: blur(20px);
+    z-index: -1;
+    opacity: 0;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+/* ===== أشكال هندسية متحركة في الخلفية ===== */
+.hero-bg::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(20, 160, 133, 0.15));
+    border-radius: 50%;
+    top: 10%;
+    right: 5%;
+    animation: float-circle 15s ease-in-out infinite;
+    z-index: 1;
+}
+
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(225deg, rgba(13, 115, 119, 0.2), rgba(251, 191, 36, 0.1));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    bottom: 15%;
+    left: 8%;
+    animation: morph 12s ease-in-out infinite, rotate-shape 20s linear infinite;
+    z-index: 1;
+}
+
+@keyframes float-circle {
+    0%, 100% { 
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
+    }
+    33% { 
+        transform: translate(30px, -40px) scale(1.1);
+        opacity: 0.5;
+    }
+    66% { 
+        transform: translate(-20px, 30px) scale(0.9);
+        opacity: 0.4;
+    }
+}
+
+@keyframes morph {
+    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+    50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+    75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+}
+
+@keyframes rotate-shape {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ===== تأثيرات 3D للبطاقات (Products) ===== */
+.card-hover {
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.card-hover:hover {
+    transform: translateY(-15px) rotateX(5deg) rotateY(-5deg);
+    box-shadow: 
+        0 25px 50px rgba(13, 115, 119, 0.3),
+        0 0 0 1px rgba(251, 191, 36, 0.2);
+}
+
+.card-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.card-hover:hover::before {
+    opacity: 1;
+}
+
+/* تأثير الإضاءة المتحركة */
+.card-hover::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(251, 191, 36, 0.15),
+        transparent
+    );
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform 0.6s;
+}
+
+.card-hover:hover::after {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+}
+
+/* ===== تأثيرات 3D للخدمات (Services) ===== */
+.service-card {
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.service-card:hover {
+    transform: translateZ(30px) scale(1.05);
+    box-shadow: 
+        0 30px 60px rgba(13, 115, 119, 0.25),
+        0 0 0 2px rgba(251, 191, 36, 0.3);
+}
+
+.service-card .bg-primary\/10 {
+    transition: all 0.4s ease;
+}
+
+.service-card:hover .bg-primary\/10 {
+    background: linear-gradient(135deg, #0d7377, #14a085);
+    transform: translateZ(20px) scale(1.1) rotateZ(5deg);
+}
+
+.service-card:hover .text-primary {
+    color: white;
+}
+
+/* ===== تأثير الأيقونات ===== */
+.service-card i {
+    transition: all 0.4s ease;
+}
+
+.service-card:hover i {
+    transform: rotateY(360deg) scale(1.2);
+    filter: drop-shadow(0 5px 15px rgba(251, 191, 36, 0.5));
+}
+
+/* ===== تحسين الفئات (Categories) ===== */
+.group {
+    perspective: 1000px;
+}
+
+.group > div {
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover > div {
+    transform: rotateY(15deg) translateZ(20px);
+    box-shadow: 
+        -10px 10px 30px rgba(13, 115, 119, 0.3),
+        0 0 0 2px rgba(251, 191, 36, 0.4);
+}
+
+.group:hover i {
+    animation: icon-bounce 0.6s ease;
+}
+
+@keyframes icon-bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3) rotate(10deg); }
+}
+
+/* ===== تأثير الأزرار الحديث ===== */
+button, .bg-yellow-400 {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+button::before, .bg-yellow-400::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before, .bg-yellow-400:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+button:hover, .bg-yellow-400:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+}
+
+/* ===== تحسين إطار البحث ===== */
+input[type="text"] {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+input[type="text"]:focus {
+    transform: scale(1.02);
+    box-shadow: 
+        0 0 0 3px rgba(251, 191, 36, 0.3),
+        0 10px 30px rgba(13, 115, 119, 0.2);
+}
+
+/* ===== تأثير المقالات (Health Tips) ===== */
+article {
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+}
+
+article:hover {
+    transform: translateY(-10px) rotateX(2deg);
+    box-shadow: 
+        0 20px 40px rgba(13, 115, 119, 0.25),
+        0 0 0 2px rgba(20, 160, 133, 0.1);
+}
+
+article img {
+    transition: transform 0.5s ease;
+}
+
+article:hover img {
+    transform: scale(1.1) rotate(2deg);
+}
+
+/* ===== تحسين الأرقام في Hero ===== */
+.hero-bg .text-3xl {
+    animation: count-pulse 2s ease infinite;
+}
+
+@keyframes count-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* ===== تأثير الواتساب العائم ===== */
+.floating-whatsapp {
+    animation: bounce 2s infinite, glow-whatsapp 2s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.floating-whatsapp:hover {
+    transform: scale(1.2) rotate(10deg);
+    animation: none;
+}
+
+@keyframes glow-whatsapp {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(37, 211, 102, 0.8);
+    }
+}
+
+/* ===== إضافة جزيئات متحركة ===== */
+@keyframes particles {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* ===== تحسين الـ Footer ===== */
+footer {
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.1), transparent);
+    top: -200px;
+    right: -200px;
+    animation: rotate-shape 20s linear infinite;
+}
+
+/* ===== تأثير النجوم للتقييم ===== */
+.ri-star-fill {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover .ri-star-fill {
+    transform: scale(1.2) rotate(72deg);
+    filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.8));
+}
+
+/* ===== تحسين الشعار ===== */
+.w-12.h-12.rounded-full {
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+header .w-12.h-12.rounded-full:hover {
+    transform: rotate(360deg) scale(1.2);
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+}
+
+/* ===== تأثير التمرير السلس للقوائم ===== */
+nav a {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* ===== تأثير العداد المتحرك ===== */
+@keyframes counter-up {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.hero-bg .grid > div {
+    animation: counter-up 0.8s ease forwards;
+}
+
+.hero-bg .grid > div:nth-child(1) { animation-delay: 0.1s; }
+.hero-bg .grid > div:nth-child(2) { animation-delay: 0.2s; }
+.hero-bg .grid > div:nth-child(3) { animation-delay: 0.3s; }
+.hero-bg .grid > div:nth-child(4) { animation-delay: 0.4s; }
+
+/* ===== تحسين السلة والأيقونات ===== */
+button:has(.ri-shopping-cart-line),
+button:has(.ri-user-line) {
+    transition: all 0.3s ease;
+}
+
+button:has(.ri-shopping-cart-line):hover,
+button:has(.ri-user-line):hover {
+    transform: translateY(-3px) scale(1.1);
+    background: rgba(251, 191, 36, 0.2);
+}
+
+/* ===== استجابة للشاشات الصغيرة ===== */
+@media (max-width: 768px) {
+    .hero-bg::before,
+    .hero-bg::after {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-10px);
+    }
+    
+    .service-card:hover {
+        transform: scale(1.02);
+    }
+}
     </script>
        
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/822/822143.png">
@@ -1089,6 +1458,7 @@ function startSearch() {
 
 
 </body></html>
+
 
 
 
