@@ -12,6 +12,8 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <style>
     :root {
         --dark-teal: #004d40; /* اللون الأخضر التركوازي الداكن */
@@ -86,7 +88,33 @@
         z-index: 1000;
         animation: bounce 2s infinite;
     }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }   
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+
+   
+  /* الكروت غير النشطة (الجانبية) */
+  .swiper-slide {
+    transform: scale(0.85);
+    opacity: 0.4;
+    filter: blur(2px);
+    transition: all 0.5s ease;
+  }
+
+  /* الكارت النشط (الذي يظهر في المنتصف) */
+  .swiper-slide-active {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: blur(0px);
+    z-index: 10;
+  }
+
+  /* تنسيق النقاط لتشبه الفيديو */
+  .swiper-pagination-bullet-active {
+    background: #3b82f6 !important; /* لون Tailwind الأزرق */
+    width: 25px !important;
+    border-radius: 5px !important;
+  }
+
 </style>
        
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/822/822143.png">
@@ -248,7 +276,34 @@
 
 
 <body>
-    
+
+    <div class="bg-gray-50 py-16">
+    <div class="swiper mySwiper max-w-5xl mx-auto !pb-12">
+        <div class="swiper-wrapper items-center">
+            
+            <div class="swiper-slide transition-all duration-500">
+                <div class="bg-white p-6 rounded-[2rem] shadow-xl text-center border border-gray-100">
+                    <img src="https://via.placeholder.com/300x400" class="rounded-2xl w-full h-64 object-cover mb-4 shadow-md" alt="Emily Kim">
+                    <h3 class="text-xl font-extrabold text-gray-800">Emily Kim</h3>
+                    <p class="text-blue-500 font-bold text-sm tracking-widest">FOUNDER</p>
+                </div>
+            </div>
+
+            <div class="swiper-slide transition-all duration-500">
+                <div class="bg-white p-6 rounded-[2rem] shadow-xl text-center border border-gray-100">
+                    <img src="https://via.placeholder.com/300x400" class="rounded-2xl w-full h-64 object-cover mb-4 shadow-md" alt="Michael Steward">
+                    <h3 class="text-xl font-extrabold text-gray-800">Michael Steward</h3>
+                    <p class="text-blue-500 font-bold text-sm tracking-widest">CREATIVE DIRECTOR</p>
+                </div>
+            </div>
+
+            </div>
+
+        <div class="swiper-pagination !-bottom-2"></div>
+    </div>
+</div>
+
+    -------------------------------------------
 <!-- Quick Services -->
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4">
@@ -898,12 +953,38 @@ function startSearch(currentInput) {
         }
     }); 
 </script>
+
+    <script>
+  var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow", // يعطي تأثير العمق
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto", // ليظهر جزء من الكروت الجانبية
+    loop: true,
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 0,
+      depth: 100,
+      modifier: 2.5,
+      slideShadows: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+        640: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 }
+    }
+  });
 </script>
 
 
 
 
+
 </body></html>
+
 
 
 
